@@ -1,0 +1,13 @@
+h1{
+    text-align:center;
+    text-decoration:blue dashed underline;
+    text-transform:capitalize;
+}
+p{
+    font-size:40px;
+    font-weight:normal;
+    font-family:cursive;
+    background-color:bisque
+    /* line-height=1000px; */
+
+}
