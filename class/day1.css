@@ -1,0 +1,20 @@
+/* Tag selector */
+h1{
+    font-family: 'Times New Roman',Times,serif;
+    font-size:big;
+    color: crimson;
+    font-style: oblique;
+}
+p{
+    font-size: medium;
+    font-style: oblique;
+    background-color: beige;
+}
+/* class selector */
+
+.box{
+    border:2px solid rgb(20, 11, 11);
+    height: auto;
+    
+   
+}
