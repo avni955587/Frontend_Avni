@@ -1,0 +1,96 @@
+/* General */
+body {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background-color: #fce4ec; /* light pink */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+#main-header {
+  background-color: #ff6f61; /* coral red */
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Tagline */
+.tagline {
+  font-style: italic;
+  color: yellow;
+}
+
+/* About Section */
+.about {
+  background-color: #fff9c4; /* light yellow */
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+/* Highlighted text */
+.highlight {
+  color: #e91e63; /* pink */
+  font-weight: bold;
+}
+
+/* Links */
+a {
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+/* Movie List */
+ul {
+  list-style-type: "⭐ ";
+}
+.favorite {
+  color: white;
+  background-color: #ff4081;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* City List */
+ol {
+  background-color: #e1f5fe; /* light blue */
+  padding: 10px;
+  border-radius: 8px;
+}
+ol li {
+  margin: 5px 0;
+}
+
+/* Food List */
+.foods {
+  list-style-type: "🍴 ";
+}
+.yummy {
+  color: white;
+  background-color: orange;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Game List */
+.games {
+  list-style-type: "🎲 ";
+}
+.best-game {
+  background-color: green;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #ff9800; /* orange */
+  color: white;
+}
