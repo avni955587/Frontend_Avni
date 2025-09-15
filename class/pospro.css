@@ -1,0 +1,40 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+/* tag selector  =====  main ,p ,h5
+ class selector  =====  static, relative */
+ h5{
+    color:brown ;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
+p{
+  color: brown;
+  font: size 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main{
+    border: 20px solid rgb(103, 209, 217);
+    width:280px;
+    height: auto;
+    margin-left: 100px;
+    margin-top: 50px;
+}
+
+
+.static
+{
+    position: static;
+   border: 5px solid #a76fcf;
+   background-color: bisque;
+}
+.relative{
+    position: relative;
+    border: 5px solid #d33e95;
+    background-color: beige;
+    top:5px;
+}
