@@ -1,0 +1,119 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #fafafa;
+    color: black;
+}
+
+h1 {
+    color: darkblue;
+}
+
+h3 {
+    color: black;
+}
+   
+
+.profile-pic {
+    width:200px;
+    height:250px;
+    border: 2px solid black;
+
+}
+
+
+.section-title {
+    color: darkred;
+    margin-top: 25px;
+}
+
+.contact-info {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 5px;
+}
+
+.contact-info a {
+    color: darkblue;
+    text-decoration: none;
+}
+.contact-info a:hover {
+    text-decoration: underline;
+}
+*/ 
+.edu-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 10px;
+}
+
+.edu-table th, .edu-table td {
+    border: 1px solid black;
+    padding: 8px; 
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.edu-table th {
+    background-color: rgb(235, 174, 217);
+}
+
+.edu-table td {
+    background-color: rgb(144, 252, 249);
+} 
+
+
+.skills li {
+      list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.project-card {
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.hobbies {
+    
+    list-style-type: none;
+}
+
+.hobbies li {
+    margin: 5px 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+}  
+
+figure {
+  border: black;
+  padding: 5px;
+  max-width: 220px;
+}
+
+img {
+  max-width: 220px;
+  max-height: 180px;
+}
+
+figcaption {
+  background-color: #222222;
+  color: white;
+  font: italic smaller sans-serif;
+  padding: 3px;
+  text-align: center;
+}
