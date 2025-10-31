@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html >
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        
+        .page_loader{
+            
+            border: 20px solid rgb(21, 2, 5);
+            width: 150px;
+            height:150px;
+            border-radius: 50% ;
+            margin-left: 20px;
+            margin-top: 20px;
+            animation-name:AR;
+            animation: AR 1s linear infinite;
+            /* animation-duration: 5s; */
+            border-top-color: blue;
+              /* border-top: 10px solid pink; */
+              /* border-bottom: 10px solid rgb(108, 176, 182); */
+              /* animation-iteration-count:infinite; */
+
+
+                }
+        @keyframes AR{
+            /* from 0%
+            to 100%
+             */
+            0%{
+                transform: rotate(0deg);
+                /* background-color: rgb(179, 112, 147);
+                border-color: brown; */
+                
+            }
+            100%
+            {
+                transform: rotate(360deg);
+                /* background-color: rgb(236, 160, 177); */
+                /* border-color: aquamarine;  */
+            }
+        }
+    </style>
+<head>
+    <title>Document</title>
+</head>
+<body>
+        <div class="page_loader"></div>
+        
+
+</body>
+</html>
