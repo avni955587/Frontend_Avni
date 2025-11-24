@@ -6,3 +6,14 @@ function getAdd()
     console.log(c)
 }
 getAdd()
+
+
+
+
+
+
+
+
+
+
+

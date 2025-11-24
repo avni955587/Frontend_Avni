@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Program</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Welcome Program</h1>
+        <p>Click the button below to start!</p>
+        <button onclick="greetUser()">Say Hello!</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function greetUser() {
+         
+            let userName = prompt("What is your name?");
+            
+            
+            if (userName) {
+             
+                alert("Nice to meet you, " + userName + "!");
+                
+              
+                document.getElementById("output").innerHTML = 
+                    "🌟 Welcome, <strong>" + userName + "</strong>! 🌟<br>We're glad you're here!";
+            } else {
+                alert("You didn't enter a name!");
+            }
+        }
+    </script>
+</body>
+</html>

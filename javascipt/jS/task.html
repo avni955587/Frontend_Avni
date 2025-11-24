@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Gallery</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .container{
+            margin-top: 25px;
+            margin-left: 50px;
+            border: 3px solid rgb(228, 25, 25);
+            /* border-top-color: brown;
+            border-bottom-color: aquamarine;
+            border-left-color:purple ;
+            border-right-color: rgb(8, 66, 213); */
+            border-radius: 2%;
+            height: 250px;
+            width: 300px;
+        }
+        .box{
+            border: 2px solid rgb(19, 128, 230);
+            margin-top:8px;
+            margin-left:5px;
+            margin-right: 5px; 
+            margin-bottom:5px;
+
+            text-align: center;
+        }
+        .right{
+            float:left;
+            width: 135px;
+            height:230px;
+        }
+        .left{
+            float:right;
+            width: 135px;
+            height:230px;
+        }
+        
+      img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="right box" id="text">
+            1
+        </div>
+        <div class="left box" id="web">
+            2
+        </div>
+    </div>
+
+    <script>
+
+        // let Content=`
+        // this is a image 
+        // `
+        // document.getElementById("text").innerHTML=Content
+        // document.getElementById("web").innerHTML=Content
+
+        // async function getData(){
+        //     console.log("HEllo")
+
+        // }
+        // getData()
+
+
+   
+
+
+
+
+
+    //         async function getData() {
+    //   try {
+    //     // Using Picsum Photos API (no key required)
+    //     const rightImageUrl = `https://picsum.photos/200?random=${Math.floor(Math.random() * 1000)}`;
+    //     const leftImageUrl = `https://picsum.photos/200?random=${Math.floor(Math.random() * 1000)}`;
+
+    //     // Set images inside the boxes
+    //     document.getElementById("text").innerHTML = `<img src="${rightImageUrl}" alt="Random Image">`;
+    //     document.getElementById("web").innerHTML = `<img src="${leftImageUrl}" alt="Random Image">`;
+
+    //     console.log("Images loaded successfully");
+    //   } catch (error) {
+    //     console.error("Error loading images:", error);
+    //   }
+    // }
+
+    // getData();
+
+
+
+    
+    </script>
+</body>
+</html>

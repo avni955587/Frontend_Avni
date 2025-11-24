@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Eligibility Checker</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 Age Eligibility Checker</h1>
+        <p>Check if you're eligible (18 or older)</p>
+        
+        <button onclick="checkWithIfElse()">Check with If-Else</button>
+        <button onclick="checkWithTernary()">Check with Ternary</button>
+        
+        <div id="output"></div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f0f0f0; border-radius: 8px; text-align: left;">
+            <h3>📝 Code Explanation:</h3>
+            <p><strong>If-Else Version:</strong></p>
+            <pre style="background: white; padding: 10px; border-radius: 5px; overflow-x: auto;">
+            if (age >= 18) {
+                 message = "You are eligible.";
+            } 
+            else {
+                message = "You are not eligible.";
+                }
+            </pre>
+            
+            <p><strong>Ternary Version:</strong></p>
+            <pre style="background: white; padding: 10px; border-radius: 5px; overflow-x: auto;">
+                message = (age >= 18) ? "You are eligible." : "You are not eligible.";
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        // Version 1: Using If-Else
+        function checkWithIfElse() {
+            let age = prompt("Enter your age:");
+            age = Number(age); // Convert to number
+            
+            let message;
+            
+            if (age >= 18) {
+                message = "✅ You are eligible.";
+                showResult(message, true);
+            } else {
+                message = "❌ You are not eligible.";
+                showResult(message, false);
+            }
+        }
+        
+        // Version 2: Using Ternary Operator
+        function checkWithTernary() {
+            let age = prompt("Enter your age:");
+            age = Number(age); // Convert to number
+            
+            // Short form: condition ? ifTrue : ifFalse
+            let message = (age >= 18) 
+                ? "✅ You are eligible." 
+                : "❌ You are not eligible.";
+            
+            let isEligible = (age >= 18) ? true : false;
+            showResult(message, isEligible);
+        }
+        
+        // Helper function to display result
+        function showResult(message, isEligible) {
+            let outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = message;
+            outputDiv.className = "output " + (isEligible ? "eligible" : "not-eligible");
+        }
+    </script>
+</body>
+</html>

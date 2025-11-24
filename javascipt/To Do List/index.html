@@ -3,30 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MY TO DO</title>
+    <link rel="icon" href="babyimg.jpg">
+    <style>
+
+    </style>
 </head>
 <body>
     <h1> To Do List </h1>
     <input type="text" id="tasklist"/>
     <button id="add" onclick="add()">Add Task</button>
+    <button id="remove" onclick="remove()">Remove Task</button>
+    <button id="update" onclick="update()">Update Task</button>
 
     <ul id="taskbar"></ul>
 
+  
+
     <script>
-        function addTask(){
-            let taskValue = document.getElementById("taskInput").value;
 
-            if(taskValue=="")
-        {
-            alert("Please enter a task ! ");
-            return;
+    //     function addTask(){
+    //         let taskValue = document.getElementById("taskInput").value;
+
+    //         if(taskValue=="")
+    //     {
+    //         alert("Please enter a task ! ");
+    //         return;
+    //     }
+
+    //     let a= document.createElement("li");
+    //     a.textContent=taskValue;
+    //     document.getElementById("taskItem").appendChild(a);
+    //     document.getElementById("taskList").value="";
+    // }
+
+       
+        // local storage
+        function add(){
+        let content = `<li> Section FC </li>
+        <li>Block 8</li>`
+        document.getElementById('list').innerHTML=content
+        document.createElement("li")
         }
 
-        let a= document.createElement("li");
-        a.textContent=taskValue;
-        document.getElementById("taskItem").appendChild(a);
-        document.getElementById("taskList").value="";
-        }
     </script>
 </body>
 </html>

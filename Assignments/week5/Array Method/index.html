@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Methods Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Array Methods Interactive Demo</h1>
+        
+        <!-- forEach Demo -->
+        <div class="method-section">
+            <h2>🔁 forEach() - Loop Through Items</h2>
+            <p>Loop through each item and do something with it.</p>
+            <button onclick="demoForEach()">Run forEach() Demo</button>
+            <div id="forEachResult"></div>
+        </div>
+        
+        <!-- map Demo -->
+        <div class="method-section">
+            <h2>🔄 map() - Transform Items</h2>
+            <p>Change each item and create a new array.</p>
+            <button onclick="demoMap()">Run map() Demo</button>
+            <div id="mapResult"></div>
+        </div>
+        
+        <!-- filter Demo -->
+        <div class="method-section">
+            <h2>🎯 filter() - Pick Specific Items</h2>
+            <p>Keep only items that match a condition.</p>
+            <button onclick="demoFilter()">Run filter() Demo</button>
+            <div id="filterResult"></div>
+        </div>
+        
+        <!-- reduce Demo -->
+        <div class="method-section">
+            <h2>➕ reduce() - Combine All Items</h2>
+            <p>Add all items together to get one result.</p>
+            <button onclick="demoReduce()">Run reduce() Demo</button>
+            <div id="reduceResult"></div>
+        </div>
+    </div>
+
+    <script>
+        // forEach Demo
+        function demoForEach() {
+            let fruits = ["🍎 Apple", "🍌 Banana", "🍊 Orange"];
+            let output = "";
+            
+            fruits.forEach(function(fruit) {
+                output += "I love " + fruit + "<br>";
+            });
+            
+            document.getElementById("forEachResult").innerHTML = `
+                <div class="result">
+                    <div class="original">Original: ${JSON.stringify(fruits)}</div>
+                    <div class="output">Output:<br>${output}</div>
+                </div>
+            `;
+        }
+        
+        // map Demo
+        function demoMap() {
+            let numbers = [1, 2, 3, 4, 5];
+            
+            let doubled = numbers.map(function(num) {
+                return num * 2;
+            });
+            
+            document.getElementById("mapResult").innerHTML = `
+                <div class="result">
+                    <div class="original">Original: ${JSON.stringify(numbers)}</div>
+                    <div class="output">After multiplying by 2: ${JSON.stringify(doubled)}</div>
+                    <p style="margin-top: 10px; color: #666;">
+                        <code>map()</code> transformed each number!
+                    </p>
+                </div>
+            `;
+        }
+        
+        // filter Demo
+        function demoFilter() {
+            let numbers = [5, 12, 8, 20, 3, 15];
+            
+            let bigNumbers = numbers.filter(function(num) {
+                return num > 10;
+            });
+            
+            document.getElementById("filterResult").innerHTML = `
+                <div class="result">
+                    <div class="original">Original: ${JSON.stringify(numbers)}</div>
+                    <div class="output">Numbers greater than 10: ${JSON.stringify(bigNumbers)}</div>
+                    <p style="margin-top: 10px; color: #666;">
+                        <code>filter()</code> kept only numbers > 10!
+                    </p>
+                </div>
+            `;
+        }
+        
+        // reduce Demo
+        function demoReduce() {
+            let prices = [100, 250, 75, 150];
+            
+            let total = prices.reduce(function(sum, price) {
+                return sum + price;
+            }, 0);
+            
+            let steps = "";
+            let runningTotal = 0;
+            prices.forEach(function(price) {
+                runningTotal += price;
+                steps += runningTotal - price + " + " + price + " = " + runningTotal + "<br>";
+            });
+            
+            document.getElementById("reduceResult").innerHTML = `
+                <div class="result">
+                    <div class="original">Shopping Cart: ${JSON.stringify(prices)}</div>
+                    <div style="margin: 15px 0; color: #666; font-size: 14px;">
+                        <strong>Step by step:</strong><br>
+                        ${steps}
+                    </div>
+                    <div class="output">Total Cost: ₹${total}</div>
+                    <p style="margin-top: 10px; color: #666;">
+                        <code>reduce()</code> added all prices together!
+                    </p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

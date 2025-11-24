@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Home Page</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .list-item{
+            list-style: none;
+            float: right;
+            height: 40px;
+            width: 100px;
+            background-color: antiquewhite;
+           
+
+        }
+        a{
+            list-style: none;
+            float: right;
+            padding: 5px;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+            font-style: bold;
+            margin-right: 8px;
+            color: brown;
+        }
+        #container{
+            border: 3px solid brown;
+            height: 300px;
+            width: 250px;
+            margin: 10px;
+            margin-left: 500px;
+        }
+        #error{
+            margin-left: 8px;
+            color: brown;
+        }
+        .footer{
+            margin-left: 10px;
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+        <div class="list">
+            <ul>
+                <li class="list-item"><a href="#">Home</a></li>
+                <li class="list-item"><a href="./AboutUs.html">About Us</a></li>
+                <li class="list-item"><a href="./Sevice.html">Service</a></li>
+                <li class="list-item"><a href="./Contact.html">Contact Us </a></li>
+            </ul>
+        </div>
+
+        <div id="container">
+
+        </div>
+
+        <br><br>
+
+        <div id="error">
+            <!-- Error is loading........ -->
+        </div>
+        
+        <br>
+
+        <div class="footer">
+            <ul> 
+                <li>Linkdin</li>
+                <li>Email</li>
+
+            </ul>
+        </div>
+
+
+        <script>
+            let api="https://dummyjson.com/products/1"
+
+            let myPromise=new Promise((accept,reject)=>{
+                fetch(api)
+                .then(Response => Response.json())
+                .then(info =>accept(info))
+                .catch(error => reject(error))
+            })
+            
+            myPromise
+                .then((key) =>{
+                    document.getElementById('container').innerHTML=`
+                    ${key.id} <br><br>
+                    ${key.title}  <br><br>
+                    ${key.description}
+                    `
+                })
+                .catch((err)=>{
+                   document.getElementById('error').innerHTML=`
+                   Waiting for the data fron server
+                   `
+                }
+
+                )
+
+        </script>
+
+</body>
+</html>
