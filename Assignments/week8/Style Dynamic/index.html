@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Styling - jQuery .css()</title>
+  
+  <!-- Include jQuery from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+ 
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Dynamic Styling with jQuery</h1>
+
+    <!-- The box we'll modify -->
+    <div class="demo-box" id="demoBox">
+      Style Me!
+    </div>
+
+    <!-- Control buttons -->
+    <div class="controls">
+      <button id="changeColor">Change Color</button>
+      <button id="changeSize">Change Size</button>
+      <button id="addBorder">Add Border</button>
+      <button id="makeRound">Make Round</button>
+      <button id="addShadow">Add Shadow</button>
+      <button id="reset">Reset</button>
+    </div>
+
+    <!-- Custom styling inputs -->
+    <div class="input-section">
+      <h3 style="margin-bottom: 15px;">Custom Styling</h3>
+      
+      <div class="input-group">
+        <label for="bgColor">Background Color:</label>
+        <input type="color" id="bgColor" value="#667eea">
+      </div>
+
+      <div class="input-group">
+        <label for="boxWidth">Width (px):</label>
+        <input type="number" id="boxWidth" value="200" min="100" max="400">
+      </div>
+
+      <div class="input-group">
+        <label for="boxHeight">Height (px):</label>
+        <input type="number" id="boxHeight" value="200" min="100" max="400">
+      </div>
+
+      <button id="applyCustom">Apply Custom Styles</button>
+    </div>
+
+    <!-- Code example -->
+    <div class="code-example">
+      <strong>💡 jQuery .css() Syntax:</strong><br><br>
+      // Single property:<br>
+      $('selector').css('property', 'value');<br><br>
+      // Multiple properties:<br>
+      $('selector').css({<br>
+      &nbsp;&nbsp;'property1': 'value1',<br>
+      &nbsp;&nbsp;'property2': 'value2'<br>
+      });
+    </div>
+
+    <div class="note">
+      <strong>📌 Note:</strong> The .css() method can both GET and SET CSS properties. Click the buttons above to see how jQuery dynamically changes styles!
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      
+      // ========================================
+      // METHOD 1: Setting a SINGLE CSS property
+      // ========================================
+      
+      $('#changeColor').on('click', function() {
+        // Changes only the background-color property
+        $('#demoBox').css('background-color', '#e74c3c');
+        
+        console.log('Single property changed: background-color');
+      });
+
+      // ========================================
+      // METHOD 2: Setting MULTIPLE CSS properties at once
+      // ========================================
+      
+      $('#changeSize').on('click', function() {
+        // Pass an object with multiple property-value pairs
+        $('#demoBox').css({
+          'width': '300px',
+          'height': '300px',
+          'font-size': '24px'
+        });
+        
+        console.log('Multiple properties changed: width, height, font-size');
+      });
+
+      // ========================================
+      // METHOD 3: Dynamic values from variables
+      // ========================================
+      
+      $('#addBorder').on('click', function() {
+        // Store values in variables first
+        const borderWidth = '5px';
+        const borderStyle = 'dashed';
+        const borderColor = '#f39c12';
+        
+        // Apply using variables
+        $('#demoBox').css({
+          'border': borderWidth + ' ' + borderStyle + ' ' + borderColor
+        });
+        
+        console.log('Border added using variables');
+      });
+
+      // ========================================
+      // Combining .css() with other methods
+      // ========================================
+      
+      $('#makeRound').on('click', function() {
+        $('#demoBox').css({
+          'border-radius': '50%', // Makes it circular
+          'background': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        });
+        
+        console.log('Made circular with gradient');
+      });
+
+      // ========================================
+      // Complex styling example
+      // ========================================
+      
+      $('#addShadow').on('click', function() {
+        $('#demoBox').css({
+          'box-shadow': '0 20px 60px rgba(0, 0, 0, 0.5)',
+          'transform': 'scale(1.1) rotate(5deg)',
+          'background': '#2ecc71'
+        });
+        
+        console.log('Added shadow and transform');
+      });
+
+      // ========================================
+      // Reset to original styles
+      // ========================================
+      
+      $('#reset').on('click', function() {
+        $('#demoBox').css({
+          'width': '200px',
+          'height': '200px',
+          'background': '#667eea',
+          'border': 'none',
+          'border-radius': '10px',
+          'box-shadow': '0 5px 15px rgba(0, 0, 0, 0.2)',
+          'transform': 'none',
+          'font-size': '20px'
+        });
+        
+        console.log('Reset to original styles');
+      });
+
+      // ========================================
+      // GETTING CSS values (not just setting)
+      // ========================================
+      
+      // You can also READ current CSS values:
+      $('#demoBox').on('click', function() {
+        // Get current background color
+        const currentBg = $(this).css('background-color');
+        const currentWidth = $(this).css('width');
+        
+        console.log('Current background:', currentBg);
+        console.log('Current width:', currentWidth);
+        
+        alert('Background: ' + currentBg + '\nWidth: ' + currentWidth);
+      });
+
+      // ========================================
+      // Custom styling from inputs
+      // ========================================
+      
+      $('#applyCustom').on('click', function() {
+        // Get values from input fields
+        const customColor = $('#bgColor').val();
+        const customWidth = $('#boxWidth').val() + 'px';
+        const customHeight = $('#boxHeight').val() + 'px';
+        
+        // Apply custom styles
+        $('#demoBox').css({
+          'background-color': customColor,
+          'width': customWidth,
+          'height': customHeight
+        });
+        
+        console.log('Applied custom styles:', {
+          color: customColor,
+          width: customWidth,
+          height: customHeight
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>

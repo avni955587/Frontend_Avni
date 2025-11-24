@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Login Form - jQuery</title>
+  
+  <!-- Include jQuery from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Main landing page */
+    .landing-page {
+      text-align: center;
+      color: white;
+    }
+
+    .landing-page h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .landing-page p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    /* Show Login button */
+    #showLoginBtn {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #showLoginBtn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    #showLoginBtn:active {
+      transform: translateY(0);
+    }
+
+    /* Overlay backdrop */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none; /* Hidden by default */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    /* Login form container */
+    .login-container {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      display: none; /* Hidden by default */
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #999;
+      cursor: pointer;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      transition: all 0.3s;
+    }
+
+    .close-btn:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    /* Form styling */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    /* Checkbox styling */
+    .remember-me {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .remember-me input {
+      margin-right: 8px;
+      width: auto;
+    }
+
+    /* Login button */
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 15px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Cancel button */
+    .cancel-btn {
+      width: 100%;
+      background: #f0f0f0;
+      color: #666;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .cancel-btn:hover {
+      background: #e0e0e0;
+    }
+
+    /* Links */
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .form-footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Success message */
+    .success-message {
+      background: #d4edda;
+      border: 2px solid #28a745;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      color: #155724;
+      display: none;
+      margin-top: 20px;
+    }
+
+    .success-message h3 {
+      margin-bottom: 10px;
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <!-- Landing Page -->
+  <div class="landing-page">
+    <h1>🚀 Welcome to Our App</h1>
+    <p>Experience smooth animations with jQuery</p>
+    <button id="showLoginBtn">Login to Continue</button>
+  </div>
+
+  <!-- Overlay (dark background) -->
+  <div class="overlay" id="overlay">
+    <!-- Login Form Container -->
+    <div class="login-container" id="loginForm">
+      <!-- Close button -->
+      <button class="close-btn" id="closeBtn">×</button>
+      
+      <h2>🔐 Login</h2>
+      
+      <form id="loginFormElement">
+        <!-- Username field -->
+        <div class="form-group">
+          <label for="username">Username or Email</label>
+          <input 
+            type="text" 
+            id="username" 
+            placeholder="Enter your username"
+            required
+          >
+        </div>
+
+        <!-- Password field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Enter your password"
+            required
+          >
+        </div>
+
+        <!-- Remember me checkbox -->
+        <div class="remember-me">
+          <input type="checkbox" id="rememberMe">
+          <label for="rememberMe">Remember me</label>
+        </div>
+
+        <!-- Login button -->
+        <button type="submit" class="login-btn">Login</button>
+        
+        <!-- Cancel button -->
+        <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+
+        <!-- Success message (hidden initially) -->
+        <div class="success-message" id="successMessage">
+          <h3>✅ Success!</h3>
+          <p>You have successfully logged in.</p>
+        </div>
+      </form>
+
+      <!-- Form footer with links -->
+      <div class="form-footer">
+        <a href="#">Forgot Password?</a> | 
+        <a href="#">Sign Up</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wait for document to be ready
+    $(document).ready(function() {
+      
+      // ========================================
+      // SHOW LOGIN FORM
+      // ========================================
+      
+      $('#showLoginBtn').on('click', function() {
+        
+        // Show the overlay (dark background)
+        // .fadeIn() makes it appear gradually
+        $('#overlay').fadeIn(400); // 400ms = 0.4 seconds
+        
+        // Show the login form
+        // We use a delay to make it appear after the overlay
+        $('#loginForm').delay(200).fadeIn(400);
+        
+        // Alternative without delay:
+        // $('#loginForm').fadeIn(400);
+        
+        console.log('Login form is now visible');
+      });
+
+      // ========================================
+      // CLOSE LOGIN FORM (X button)
+      // ========================================
+      
+      $('#closeBtn').on('click', function() {
+        
+        // Hide the login form first
+        // .fadeOut() makes it disappear gradually
+        $('#loginForm').fadeOut(400);
+        
+        // Then hide the overlay
+        // We use a delay so overlay fades after form
+        $('#overlay').delay(200).fadeOut(400);
+        
+        // Reset form and hide success message
+        $('#successMessage').hide();
+        $('#loginFormElement')[0].reset();
+        
+        console.log('Login form closed');
+      });
+
+      // ========================================
+      // CLOSE LOGIN FORM (Cancel button)
+      // ========================================
+      
+      $('#cancelBtn').on('click', function() {
+        
+        // Same effect as close button
+        $('#loginForm').fadeOut(400);
+        $('#overlay').delay(200).fadeOut(400);
+        
+        // Reset form
+        $('#successMessage').hide();
+        $('#loginFormElement')[0].reset();
+        
+        console.log('Login cancelled');
+      });
+
+      // ========================================
+      // CLOSE when clicking outside the form
+      // ========================================
+      
+      $('#overlay').on('click', function(event) {
+        
+        // Check if click was on the overlay itself (not the form)
+        // event.target is the element that was clicked
+        if (event.target.id === 'overlay') {
+          $('#loginForm').fadeOut(400);
+          $('#overlay').delay(200).fadeOut(400);
+          $('#successMessage').hide();
+          $('#loginFormElement')[0].reset();
+          
+          console.log('Clicked outside form - closing');
+        }
+      });
+
+      // ========================================
+      // FORM SUBMISSION
+      // ========================================
+      
+      $('#loginFormElement').on('submit', function(event) {
+        
+        // Prevent default form submission (page refresh)
+        event.preventDefault();
+        
+        // Get input values
+        const username = $('#username').val();
+        const password = $('#password').val();
+        const rememberMe = $('#rememberMe').is(':checked');
+        
+        // Basic validation
+        if (username && password) {
+          
+          console.log('Login attempt:', {
+            username: username,
+            password: '***hidden***',
+            rememberMe: rememberMe
+          });
+          
+          // Hide the form fields
+          $('#loginFormElement').fadeOut(300, function() {
+            
+            // After form fades out, show success message
+            $('#successMessage').fadeIn(400);
+            
+            // After 2 seconds, close everything
+            setTimeout(function() {
+              $('#loginForm').fadeOut(400);
+              $('#overlay').delay(200).fadeOut(400, function() {
+                // Reset after everything is hidden
+                $('#loginFormElement').show();
+                $('#successMessage').hide();
+                $('#loginFormElement')[0].reset();
+              });
+            }, 2000);
+            
+          });
+          
+        } else {
+          alert('Please fill in all fields');
+        }
+      });
+
+      // ========================================
+      // ESC key to close
+      // ========================================
+      
+      $(document).on('keydown', function(event) {
+        // Check if ESC key was pressed (key code 27)
+        if (event.keyCode === 27) {
+          // Check if login form is visible
+          if ($('#loginForm').is(':visible')) {
+            $('#loginForm').fadeOut(400);
+            $('#overlay').delay(200).fadeOut(400);
+            $('#successMessage').hide();
+            $('#loginFormElement')[0].reset();
+            
+            console.log('ESC pressed - form closed');
+          }
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>

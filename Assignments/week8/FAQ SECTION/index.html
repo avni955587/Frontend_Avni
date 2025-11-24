@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ Section - jQuery</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Include jQuery from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+  
+</head>
+<body>
+  <div class="container">
+    <h1>❓ Frequently Asked Questions</h1>
+
+    <!-- FAQ Item 1 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <h3>What is jQuery?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-answer">
+        jQuery is a fast, small, and feature-rich JavaScript library. It makes things like HTML document traversal and manipulation, event handling, and animation much simpler with an easy-to-use API that works across multiple browsers.
+      </div>
+    </div>
+
+    <!-- FAQ Item 2 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <h3>Why should I learn jQuery in 2024?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-answer">
+        While modern frameworks like React and Vue are popular, jQuery is still used in many existing projects. Learning jQuery helps you understand DOM manipulation concepts and makes it easier to maintain legacy code. It's also great for quick prototypes and simple interactions.
+      </div>
+    </div>
+
+    <!-- FAQ Item 3 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <h3>What is the difference between jQuery and JavaScript?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-answer">
+        JavaScript is a programming language that runs in browsers. jQuery is a library written in JavaScript that simplifies common tasks. Think of JavaScript as the language and jQuery as a helpful toolkit that makes writing JavaScript easier and faster.
+      </div>
+    </div>
+
+    <!-- FAQ Item 4 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <h3>How do I include jQuery in my project?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-answer">
+        You can include jQuery by adding a script tag in your HTML that links to a CDN (Content Delivery Network). For example: <code>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"&gt;&lt;/script&gt;</code>
+      </div>
+    </div>
+
+    <!-- FAQ Item 5 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <h3>What does slideToggle() do?</h3>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="faq-answer">
+        The <code>slideToggle()</code> method displays or hides elements with a sliding motion. If the element is hidden, it slides down to show it. If it's visible, it slides up to hide it. It's perfect for creating smooth accordion-style interfaces like this FAQ!
+      </div>
+    </div>
+
+    <div class="note">
+      💡 Click on any question to see the answer!
+    </div>
+  </div>
+
+  <script>
+    // Wait for the document to be fully loaded before running jQuery code
+    $(document).ready(function() {
+      
+      // EXPLANATION: We're using jQuery to select all elements with class "faq-question"
+      // The $ symbol is jQuery's main function
+      // .on('click', function() {...}) attaches a click event to each question
+      
+      $('.faq-question').on('click', function() {
+        
+        // $(this) refers to the clicked question element
+        // .parent() gets the parent .faq-item div
+        const faqItem = $(this).parent();
+        
+        // .next() gets the next sibling element (the answer div)
+        const answer = $(this).next('.faq-answer');
+        
+        // .slideToggle(400) animates the answer
+        // 400 is the animation duration in milliseconds (0.4 seconds)
+        // If answer is hidden, it slides down. If visible, it slides up.
+        answer.slideToggle(400);
+        
+        // .toggleClass() adds the class if it doesn't exist, removes it if it does
+        // We use this to rotate the arrow icon
+        faqItem.toggleClass('active');
+        
+        // OPTIONAL: Close all other FAQ items (accordion behavior)
+        // Uncomment the lines below if you want only one answer visible at a time
+        
+        // $('.faq-item').not(faqItem).removeClass('active');
+        // $('.faq-answer').not(answer).slideUp(400);
+        
+      });
+      
+    });
+  </script>
+</body>
+</html>
