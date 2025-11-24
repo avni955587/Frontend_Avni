@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #countryInput {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        #countryInput:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #searchBtn {
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #searchBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        #searchBtn:active {
+            transform: translateY(0);
+        }
+
+        #searchBtn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .examples {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .examples strong {
+            color: #667eea;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fee;
+            border: 2px solid #fcc;
+            color: #c33;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .results-info {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .results-info.show {
+            display: block;
+        }
+
+        .results-info h3 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .university-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .university-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .university-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .university-info {
+            margin-bottom: 10px;
+        }
+
+        .university-info strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .university-info span {
+            color: #666;
+        }
+
+        .website-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        .website-link:hover {
+            transform: scale(1.05);
+        }
+
+        .no-results {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .no-results h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            #results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 University Finder</h1>
+            <p>Discover universities from around the world</p>
+        </div>
+
+        <div class="search-box">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="countryInput" 
+                    placeholder="Enter country name (e.g., India, Canada, Japan)"
+                    autocomplete="off"
+                >
+                <button id="searchBtn">Search</button>
+            </div>
+            <div class="examples">
+                <strong>Try:</strong> United States, United Kingdom, Australia, Germany, France,India
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Searching for universities...</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="results-info" id="resultsInfo"></div>
+
+        <div class="no-results" id="noResults">
+            <h3>😕 No Universities Found</h3>
+            <p>Try searching for a different country or check your spelling.</p>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // STEP 1: Get references to HTML elements
+        const countryInput = document.getElementById('countryInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultsDiv = document.getElementById('results');
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('errorMessage');
+        const noResultsDiv = document.getElementById('noResults');
+        const resultsInfoDiv = document.getElementById('resultsInfo');
+
+        // STEP 2: Add event listener to search button
+        searchBtn.addEventListener('click', searchUniversities);
+
+        // STEP 3: Allow Enter key to trigger search
+        countryInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchUniversities();
+            }
+        });
+
+        // STEP 4: Main function to search universities
+        async function searchUniversities() {
+            // Get the country name from input and remove extra spaces
+            const country = countryInput.value.trim();
+
+            // Validate input - make sure user entered something
+            if (country === '') {
+                showError('Please enter a country name!');
+                return;
+            }
+
+            // Clear previous results and messages
+            clearResults();
+
+            // Show loading spinner
+            loadingDiv.classList.add('show');
+            searchBtn.disabled = true;
+
+            try {
+                // STEP 5: Fetch data from API
+                // The fetch() function makes a request to the API
+                const response = await fetch(
+                    `https://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`
+                );
+
+                // Check if the response is successful (status code 200-299)
+                if (!response.ok) {
+                    throw new Error('Failed to fetch universities. Please try again.');
+                }
+
+                // STEP 6: Convert response to JSON format
+                // JSON is a way to structure data that JavaScript can easily work with
+                const universities = await response.json();
+
+                // Hide loading spinner
+                loadingDiv.classList.remove('show');
+                searchBtn.disabled = false;
+
+                // STEP 7: Check if we got any results
+                if (universities.length === 0) {
+                    noResultsDiv.classList.add('show');
+                    return;
+                }
+
+                // STEP 8: Display the results
+                displayResults(universities, country);
+
+            } catch (error) {
+                // STEP 9: Handle any errors that occur
+                loadingDiv.classList.remove('show');
+                searchBtn.disabled = false;
+                showError(error.message || 'Something went wrong. Please try again.');
+                console.error('Error:', error);
+            }
+        }
+
+        // STEP 10: Function to display results
+        function displayResults(universities, country) {
+            // Show results info
+            resultsInfoDiv.innerHTML = `
+                <h3>Found ${universities.length} ${universities.length === 1 ? 'university' : 'universities'} in ${country}</h3>
+            `;
+            resultsInfoDiv.classList.add('show');
+
+            // Create HTML for each university
+            universities.forEach(uni => {
+                // Create a card for each university
+                const card = document.createElement('div');
+                card.className = 'university-card';
+
+                // Build the HTML content
+                card.innerHTML = `
+                    <h3>${uni.name}</h3>
+                    
+                    ${uni['state-province'] ? `
+                        <div class="university-info">
+                            <strong>📍 Location:</strong>
+                            <span>${uni['state-province']}</span>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="university-info">
+                        <strong>🌐 Website:</strong>
+                        <span>${uni.web_pages && uni.web_pages.length > 0 ? uni.web_pages[0] : 'N/A'}</span>
+                    </div>
+                    
+                    ${uni.web_pages && uni.web_pages.length > 0 ? `
+                        <a href="${uni.web_pages[0]}" target="_blank" class="website-link">
+                            Visit Website →
+                        </a>
+                    ` : ''}
+                `;
+
+                // Add the card to the results div
+                resultsDiv.appendChild(card);
+            });
+        }
+
+        // STEP 11: Function to show error messages
+        function showError(message) {
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // STEP 12: Function to clear all previous results
+        function clearResults() {
+            resultsDiv.innerHTML = '';
+            errorDiv.classList.remove('show');
+            noResultsDiv.classList.remove('show');
+            resultsInfoDiv.classList.remove('show');
+        }
+    </script>
+</body>
+</html>

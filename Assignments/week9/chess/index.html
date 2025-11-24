@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced DOM Applications</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- <h1>🎯 Advanced DOM Applications</h1> -->
+
+        <div class="apps-grid">
+            <div class="app-section">
+                <h2>♟️ Chessboard Generator</h2>
+                
+                <div class="controls">
+                    <label>
+                        Rows:
+                        <input type="number" id="rowsInput" value="8" min="2" max="20">
+                    </label>
+                    <label>
+                        Columns:
+                        <input type="number" id="colsInput" value="8" min="2" max="20">
+                    </label>
+                    <label>
+                        Size:
+                        <input type="number" id="sizeInput" value="60" min="20" max="100">
+                    </label>
+                    <button id="generateBtn">Generate Board</button>
+                </div>
+
+                <div id="chessboardContainer">
+                    <div id="chessboard"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+         // STEP 1: Get references to elements
+        const rowsInput = document.getElementById('rowsInput');
+        const colsInput = document.getElementById('colsInput');
+        const sizeInput = document.getElementById('sizeInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const chessboard = document.getElementById('chessboard');
+
+        // STEP 2: Generate initial chessboard on page load
+        generateChessboard();
+
+        // STEP 3: Add event listener to generate button
+        generateBtn.addEventListener('click', generateChessboard);
+
+        // STEP 4: Main function to generate chessboard
+        function generateChessboard() {
+            // Get user input values
+            const rows = parseInt(rowsInput.value);
+            const cols = parseInt(colsInput.value);
+            const squareSize = parseInt(sizeInput.value);
+
+            // Validate inputs
+            if (rows < 2 || rows > 20 || cols < 2 || cols > 20) {
+                alert('Please enter rows and columns between 2 and 20');
+                return;
+            }
+
+            if (squareSize < 20 || squareSize > 100) {
+                alert('Please enter square size between 20 and 100');
+                return;
+            }
+
+            // STEP 5: Clear existing board
+            chessboard.innerHTML = '';
+
+            // STEP 6: Set grid layout
+            chessboard.style.gridTemplateColumns = `repeat(${cols}, ${squareSize}px)`;
+            chessboard.style.gridTemplateRows = `repeat(${rows}, ${squareSize}px)`;
+
+            // STEP 7: Generate squares using nested loops
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    // Create a square div
+                    const square = document.createElement('div');
+                    square.className = 'chess-square';
+
+                    // STEP 8: Determine if square should be black or white
+                    // Formula: if (row + col) is even, it's white; if odd, it's black
+                    const isWhite = (row + col) % 2 === 0;
+
+                    // STEP 9: Apply colors dynamically
+                    if (isWhite) {
+                        square.style.backgroundColor = '#f0d9b5'; // Light beige
+                    } else {
+                        square.style.backgroundColor = '#b58863'; // Dark brown
+                    }
+
+                    // STEP 10: Add coordinate labels (optional enhancement)
+                    const coordinate = `${String.fromCharCode(65 + col)}${rows - row}`;
+                    square.textContent = coordinate;
+                    square.style.color = isWhite ? '#b58863' : '#f0d9b5';
+
+                    // STEP 11: Add hover effect data
+                    square.addEventListener('mouseenter', function() {
+                        this.style.opacity = '0.7';
+                    });
+
+                    square.addEventListener('mouseleave', function() {
+                        this.style.opacity = '1';
+                    });
+
+                    // STEP 12: Append square to board
+                    chessboard.appendChild(square);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+  
