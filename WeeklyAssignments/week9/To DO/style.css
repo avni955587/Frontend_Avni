@@ -45,7 +45,7 @@
             text-align: center;
         }
 
-        /* ===== TODO APP STYLES ===== */
+    
         .todo-input-container {
             display: flex;
             gap: 10px;
@@ -199,5 +199,4 @@
             margin-bottom: 10px;
         }
 
-        /* ===== CHESSBOARD STYLES ===== */
        

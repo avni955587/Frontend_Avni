@@ -47,7 +47,7 @@
     </div>
 
     <script>
-        // STEP 1: Get references to HTML elements
+     
         const countryInput = document.getElementById('countryInput');
         const searchBtn = document.getElementById('searchBtn');
         const resultsDiv = document.getElementById('results');
@@ -56,65 +56,59 @@
         const noResultsDiv = document.getElementById('noResults');
         const resultsInfoDiv = document.getElementById('resultsInfo');
 
-        // STEP 2: Add event listener to search button
+    
         searchBtn.addEventListener('click', searchUniversities);
 
-        // STEP 3: Allow Enter key to trigger search
+   
         countryInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 searchUniversities();
             }
         });
 
-        // STEP 4: Main function to search universities
+   
         async function searchUniversities() {
-            // Get the country name from input and remove extra spaces
+           
             const country = countryInput.value.trim();
 
-            // Validate input - make sure user entered something
+    
             if (country === '') {
                 showError('Please enter a country name!');
                 return;
             }
 
-            // Clear previous results and messages
             clearResults();
 
-            // Show loading spinner
+       
             loadingDiv.classList.add('show');
             searchBtn.disabled = true;
 
             try {
-                // STEP 5: Fetch data from API
-                // The fetch() function makes a request to the API
+           
                 const response = await fetch(
                     `https://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`
                 );
 
-                // Check if the response is successful (status code 200-299)
+             
                 if (!response.ok) {
                     throw new Error('Failed to fetch universities. Please try again.');
                 }
-
-                // STEP 6: Convert response to JSON format
-                // JSON is a way to structure data that JavaScript can easily work with
                 const universities = await response.json();
 
-                // Hide loading spinner
                 loadingDiv.classList.remove('show');
                 searchBtn.disabled = false;
 
-                // STEP 7: Check if we got any results
+           
                 if (universities.length === 0) {
                     noResultsDiv.classList.add('show');
                     return;
                 }
 
-                // STEP 8: Display the results
+              
                 displayResults(universities, country);
 
             } catch (error) {
-                // STEP 9: Handle any errors that occur
+              
                 loadingDiv.classList.remove('show');
                 searchBtn.disabled = false;
                 showError(error.message || 'Something went wrong. Please try again.');
@@ -122,21 +116,21 @@
             }
         }
 
-        // STEP 10: Function to display results
+   
         function displayResults(universities, country) {
-            // Show results info
+     
             resultsInfoDiv.innerHTML = `
                 <h3>Found ${universities.length} ${universities.length === 1 ? 'university' : 'universities'} in ${country}</h3>
             `;
             resultsInfoDiv.classList.add('show');
 
-            // Create HTML for each university
+         
             universities.forEach(uni => {
-                // Create a card for each university
+            
                 const card = document.createElement('div');
                 card.className = 'university-card';
 
-                // Build the HTML content
+               
                 card.innerHTML = `
                     <h3>${uni.name}</h3>
                     
@@ -159,23 +153,23 @@
                     ` : ''}
                 `;
 
-                // Add the card to the results div
                 resultsDiv.appendChild(card);
+              
             });
         }
 
-        // STEP 11: Function to show error messages
+    
         function showError(message) {
             errorDiv.textContent = message;
             errorDiv.classList.add('show');
             
-            // Hide error after 5 seconds
+            
             setTimeout(() => {
                 errorDiv.classList.remove('show');
             }, 5000);
         }
 
-        // STEP 12: Function to clear all previous results
+     
         function clearResults() {
             resultsDiv.innerHTML = '';
             errorDiv.classList.remove('show');

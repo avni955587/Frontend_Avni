@@ -3,25 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced DOM Applications</title>
+    <title>Feature-Rich To-Do List</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <!-- <h1>🎯 Advanced DOM Applications</h1> -->
-
         <div class="apps-grid">
-            <!-- TODO LIST APP -->
             <div class="app-section">
                 <h2>📝 Feature-Rich To-Do List</h2>
-                
                 <div class="todo-input-container">
-                    <input 
-                        type="text" 
-                        id="todoInput" 
-                        placeholder="Enter a new task..."
-                        autocomplete="off"
-                    >
+                    <input type="text" id="todoInput" placeholder="Enter a new task..." autocomplete="off">
                     <button id="addBtn">Add Task</button>
                 </div>
 
@@ -32,58 +23,30 @@
                     </div>
                 </ul>
             </div>
+        </div>
+    </div>
 
-            <!-- CHESSBOARD GENERATOR -->
-            
     <script>
-        // ========================================
-        // TASK 1: FEATURE-RICH TO-DO LIST APP
-        // ========================================
-
-        // STEP 1: Get references to DOM elements
         const todoInput = document.getElementById('todoInput');
         const addBtn = document.getElementById('addBtn');
         const todoList = document.getElementById('todoList');
 
-        // STEP 2: Initialize task counter
         let taskIdCounter = 0;
 
-        // STEP 3: Add event listener to the Add button
         addBtn.addEventListener('click', addTask);
+        todoInput.addEventListener('keypress', e => { if (e.key === 'Enter') addTask(); });
 
-        // STEP 4: Allow Enter key to add tasks
-        todoInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                addTask();
-            }
-        });
-
-        // STEP 5: Main function to add a new task
         function addTask() {
-            // Get the task text and remove extra spaces
             const taskText = todoInput.value.trim();
+            if (!taskText) { alert('Please enter a task!'); return; }
 
-            // Validate - don't add empty tasks
-            if (taskText === '') {
-                alert('Please enter a task!');
-                return;
-            }
-
-            // Clear the empty state message if it exists
             const emptyState = todoList.querySelector('.empty-state');
-            if (emptyState) {
-                emptyState.remove();
-            }
+            if (emptyState) emptyState.remove();
 
-            // Create a unique ID for this task
             const taskId = taskIdCounter++;
-
-            // STEP 6: Create the task item (li element)
             const li = document.createElement('li');
             li.className = 'todo-item';
-            li.dataset.id = taskId; // Store ID for reference
-
-            // STEP 7: Build the HTML structure for the task
+            li.dataset.id = taskId;
             li.innerHTML = `
                 <input type="checkbox" class="todo-checkbox">
                 <span class="todo-text">${taskText}</span>
@@ -94,106 +57,49 @@
                 </div>
             `;
 
-            // STEP 8: Add checkbox event listener
-            const checkbox = li.querySelector('.todo-checkbox');
-            checkbox.addEventListener('change', function() {
-                // Toggle the 'completed' class when checkbox is clicked
-                if (this.checked) {
-                    li.classList.add('completed');
-                } else {
-                    li.classList.remove('completed');
-                }
+            li.querySelector('.todo-checkbox').addEventListener('change', function() {
+                li.classList.toggle('completed', this.checked);
             });
 
-            // STEP 9: Add the task to the list
             todoList.appendChild(li);
-
-            // STEP 10: Clear the input field
             todoInput.value = '';
-
-            // STEP 11: Focus back on input for easy adding
             todoInput.focus();
-
-            // Update button states
             updateButtonStates();
         }
 
-        // STEP 12: Function to move task up
         function moveUp(taskId) {
-            // Find the task element by its ID
             const task = document.querySelector(`[data-id="${taskId}"]`);
-            
-            // Get the previous sibling (task above this one)
-            const previousTask = task.previousElementSibling;
-
-            // If there's a task above, swap them
-            if (previousTask) {
-                todoList.insertBefore(task, previousTask);
-                updateButtonStates();
-            }
+            const prev = task.previousElementSibling;
+            if (prev) { todoList.insertBefore(task, prev); updateButtonStates(); }
         }
 
-        // STEP 13: Function to move task down
         function moveDown(taskId) {
-            // Find the task element
             const task = document.querySelector(`[data-id="${taskId}"]`);
-            
-            // Get the next sibling (task below this one)
-            const nextTask = task.nextElementSibling;
+            const next = task.nextElementSibling;
+            if (next) { todoList.insertBefore(next, task); updateButtonStates(); }
+        }
 
-            // If there's a task below, swap them
-            if (nextTask) {
-                todoList.insertBefore(nextTask, task);
-                updateButtonStates();
+        function deleteTask(taskId) {
+            const task = document.querySelector(`[data-id="${taskId}"]`);
+            task.remove();
+            updateButtonStates();
+            if (!todoList.querySelector('.todo-item')) {
+                todoList.innerHTML = `
+                    <div class="empty-state">
+                        <span>📋</span>
+                        <p>No tasks yet. Add one to get started!</p>
+                    </div>
+                `;
             }
         }
 
-        // STEP 14: Function to delete a task
-        function deleteTask(taskId) {
-            // Find the task element
-            const task = document.querySelector(`[data-id="${taskId}"]`);
-            
-            // Add fade-out animation
-            task.style.animation = 'slideIn 0.3s ease-out reverse';
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                task.remove();
-                updateButtonStates();
-
-                // Show empty state if no tasks left
-                if (todoList.children.length === 0) {
-                    todoList.innerHTML = `
-                        <div class="empty-state">
-                            <span>📋</span>
-                            <p>No tasks yet. Add one to get started!</p>
-                        </div>
-                    `;
-                }
-            }, 300);
-        }
-
-        // STEP 15: Update button states (disable up/down when appropriate)
         function updateButtonStates() {
             const tasks = todoList.querySelectorAll('.todo-item');
-            
             tasks.forEach((task, index) => {
-                const upBtn = task.querySelector('.up-btn');
-                const downBtn = task.querySelector('.down-btn');
-
-                // Disable "Up" button for first task
-                upBtn.disabled = (index === 0);
-
-                // Disable "Down" button for last task
-                downBtn.disabled = (index === tasks.length - 1);
+                task.querySelector('.up-btn').disabled = index === 0;
+                task.querySelector('.down-btn').disabled = index === tasks.length - 1;
             });
         }
-
-
-        // ========================================
-        // TASK 2: CHESSBOARD GENERATOR
-              
-           
     </script>
 </body>
 </html>

@@ -30,7 +30,7 @@
       margin-bottom: 30px;
     }
 
-    /* The box we'll style dynamically */
+  
     .demo-box {
       width: 200px;
       height: 200px;
@@ -47,7 +47,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    /* Control buttons */
+  
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -78,7 +78,7 @@
       transform: translateY(0);
     }
 
-    /* Input section */
+
     .input-section {
       background: #f8f9fa;
       padding: 20px;

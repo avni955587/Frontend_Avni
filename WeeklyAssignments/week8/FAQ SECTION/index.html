@@ -6,7 +6,7 @@
   <title>FAQ Section - jQuery</title>
   <link rel="stylesheet" href="style.css">
   
-  <!-- Include jQuery from CDN -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
   
@@ -15,7 +15,7 @@
   <div class="container">
     <h1>❓ Frequently Asked Questions</h1>
 
-    <!-- FAQ Item 1 -->
+
     <div class="faq-item">
       <div class="faq-question">
         <h3>What is jQuery?</h3>
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <!-- FAQ Item 2 -->
+
     <div class="faq-item">
       <div class="faq-question">
         <h3>Why should I learn jQuery in 2024?</h3>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <!-- FAQ Item 3 -->
+
     <div class="faq-item">
       <div class="faq-question">
         <h3>What is the difference between jQuery and JavaScript?</h3>
@@ -48,7 +48,7 @@
       </div>
     </div>
 
-    <!-- FAQ Item 4 -->
+
     <div class="faq-item">
       <div class="faq-question">
         <h3>How do I include jQuery in my project?</h3>
@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <!-- FAQ Item 5 -->
+  
     <div class="faq-item">
       <div class="faq-question">
         <h3>What does slideToggle() do?</h3>
@@ -76,36 +76,25 @@
   </div>
 
   <script>
-    // Wait for the document to be fully loaded before running jQuery code
+ 
     $(document).ready(function() {
       
-      // EXPLANATION: We're using jQuery to select all elements with class "faq-question"
-      // The $ symbol is jQuery's main function
-      // .on('click', function() {...}) attaches a click event to each question
-      
+ 
       $('.faq-question').on('click', function() {
         
-        // $(this) refers to the clicked question element
-        // .parent() gets the parent .faq-item div
+      
         const faqItem = $(this).parent();
         
-        // .next() gets the next sibling element (the answer div)
+      
         const answer = $(this).next('.faq-answer');
         
-        // .slideToggle(400) animates the answer
-        // 400 is the animation duration in milliseconds (0.4 seconds)
-        // If answer is hidden, it slides down. If visible, it slides up.
+   
         answer.slideToggle(400);
         
-        // .toggleClass() adds the class if it doesn't exist, removes it if it does
-        // We use this to rotate the arrow icon
+    
         faqItem.toggleClass('active');
         
-        // OPTIONAL: Close all other FAQ items (accordion behavior)
-        // Uncomment the lines below if you want only one answer visible at a time
-        
-        // $('.faq-item').not(faqItem).removeClass('active');
-        // $('.faq-answer').not(answer).slideUp(400);
+       
         
       });
       

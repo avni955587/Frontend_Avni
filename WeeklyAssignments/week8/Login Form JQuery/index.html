@@ -5,31 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Animated Login Form - jQuery</title>
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Include jQuery from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  
- 
 </head>
 <body>
-  <!-- Landing Page -->
+
   <div class="landing-page">
     <h1>🚀 Welcome to Our App</h1>
     <p>Experience smooth animations with jQuery</p>
     <button id="showLoginBtn">Login to Continue</button>
   </div>
 
-  <!-- Overlay (dark background) -->
   <div class="overlay" id="overlay">
-    <!-- Login Form Container -->
     <div class="login-container" id="loginForm">
-      <!-- Close button -->
       <button class="close-btn" id="closeBtn">×</button>
       
       <h2>🔐 Login</h2>
       
       <form id="loginFormElement">
-        <!-- Username field -->
         <div class="form-group">
           <label for="username">Username or Email</label>
           <input 
@@ -40,7 +32,6 @@
           >
         </div>
 
-        <!-- Password field -->
         <div class="form-group">
           <label for="password">Password</label>
           <input 
@@ -51,26 +42,20 @@
           >
         </div>
 
-        <!-- Remember me checkbox -->
         <div class="remember-me">
           <input type="checkbox" id="rememberMe">
           <label for="rememberMe">Remember me</label>
         </div>
 
-        <!-- Login button -->
         <button type="submit" class="login-btn">Login</button>
-        
-        <!-- Cancel button -->
         <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
 
-        <!-- Success message (hidden initially) -->
         <div class="success-message" id="successMessage">
           <h3>✅ Success!</h3>
           <p>You have successfully logged in.</p>
         </div>
       </form>
 
-      <!-- Form footer with links -->
       <div class="form-footer">
         <a href="#">Forgot Password?</a> | 
         <a href="#">Sign Up</a>
@@ -79,147 +64,68 @@
   </div>
 
   <script>
-    // Wait for document to be ready
     $(document).ready(function() {
-      
-      // ========================================
-      // SHOW LOGIN FORM
-      // ========================================
-      
+
       $('#showLoginBtn').on('click', function() {
-        
-        // Show the overlay (dark background)
-        // .fadeIn() makes it appear gradually
-        $('#overlay').fadeIn(400); // 400ms = 0.4 seconds
-        
-        // Show the login form
-        // We use a delay to make it appear after the overlay
+        $('#overlay').fadeIn(400);
         $('#loginForm').delay(200).fadeIn(400);
-        
-        // Alternative without delay:
-        // $('#loginForm').fadeIn(400);
-        
-        console.log('Login form is now visible');
       });
 
-      // ========================================
-      // CLOSE LOGIN FORM (X button)
-      // ========================================
-      
       $('#closeBtn').on('click', function() {
-        
-        // Hide the login form first
-        // .fadeOut() makes it disappear gradually
         $('#loginForm').fadeOut(400);
-        
-        // Then hide the overlay
-        // We use a delay so overlay fades after form
         $('#overlay').delay(200).fadeOut(400);
-        
-        // Reset form and hide success message
         $('#successMessage').hide();
         $('#loginFormElement')[0].reset();
-        
-        console.log('Login form closed');
       });
 
-      // ========================================
-      // CLOSE LOGIN FORM (Cancel button)
-      // ========================================
-      
       $('#cancelBtn').on('click', function() {
-        
-        // Same effect as close button
         $('#loginForm').fadeOut(400);
         $('#overlay').delay(200).fadeOut(400);
-        
-        // Reset form
         $('#successMessage').hide();
         $('#loginFormElement')[0].reset();
-        
-        console.log('Login cancelled');
       });
 
-      // ========================================
-      // CLOSE when clicking outside the form
-      // ========================================
-      
       $('#overlay').on('click', function(event) {
-        
-        // Check if click was on the overlay itself (not the form)
-        // event.target is the element that was clicked
         if (event.target.id === 'overlay') {
           $('#loginForm').fadeOut(400);
           $('#overlay').delay(200).fadeOut(400);
           $('#successMessage').hide();
           $('#loginFormElement')[0].reset();
-          
-          console.log('Clicked outside form - closing');
         }
       });
 
-      // ========================================
-      // FORM SUBMISSION
-      // ========================================
-      
       $('#loginFormElement').on('submit', function(event) {
-        
-        // Prevent default form submission (page refresh)
         event.preventDefault();
-        
-        // Get input values
+
         const username = $('#username').val();
         const password = $('#password').val();
         const rememberMe = $('#rememberMe').is(':checked');
-        
-        // Basic validation
+
         if (username && password) {
-          
-          console.log('Login attempt:', {
-            username: username,
-            password: '***hidden***',
-            rememberMe: rememberMe
-          });
-          
-          // Hide the form fields
           $('#loginFormElement').fadeOut(300, function() {
-            
-            // After form fades out, show success message
             $('#successMessage').fadeIn(400);
-            
-            // After 2 seconds, close everything
+
             setTimeout(function() {
               $('#loginForm').fadeOut(400);
               $('#overlay').delay(200).fadeOut(400, function() {
-                // Reset after everything is hidden
                 $('#loginFormElement').show();
                 $('#successMessage').hide();
                 $('#loginFormElement')[0].reset();
               });
             }, 2000);
-            
           });
-          
         } else {
           alert('Please fill in all fields');
         }
       });
 
-      // ========================================
-      // ESC key to close
-      // ========================================
-      
       $(document).on('keydown', function(event) {
-        // Check if ESC key was pressed (key code 27)
         if (event.keyCode === 27) {
-          // Check if login form is visible
           if ($('#loginForm').is(':visible')) {
             $('#loginForm').fadeOut(400);
             $('#overlay').delay(200).fadeOut(400);
             $('#successMessage').hide();
             $('#loginFormElement')[0].reset();
-            
-            console.log('ESC pressed - form closed');
           }
         }
       });

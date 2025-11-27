@@ -37,10 +37,10 @@
     </div>
 
     <script>
-        // Version 1: Using If-Else
+   
         function checkWithIfElse() {
             let age = prompt("Enter your age:");
-            age = Number(age); // Convert to number
+            age = Number(age);
             
             let message;
             
@@ -53,12 +53,11 @@
             }
         }
         
-        // Version 2: Using Ternary Operator
+     
         function checkWithTernary() {
             let age = prompt("Enter your age:");
-            age = Number(age); // Convert to number
-            
-            // Short form: condition ? ifTrue : ifFalse
+            age = Number(age);
+          
             let message = (age >= 18) 
                 ? "✅ You are eligible." 
                 : "❌ You are not eligible.";
@@ -67,7 +66,7 @@
             showResult(message, isEligible);
         }
         
-        // Helper function to display result
+    
         function showResult(message, isEligible) {
             let outputDiv = document.getElementById("output");
             outputDiv.innerHTML = message;

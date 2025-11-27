@@ -1,137 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+.container {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+}
 
-    /* Main page styling */
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+}
 
-    /* Container box */
-    .container {
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 450px;
-      padding: 30px;
-    }
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
 
-    /* Title */
-    h1 {
-      color: #333;
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
+#taskInput {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
 
-    /* Input area */
-    .input-area {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+#taskInput:focus {
+  outline: none;
+  border-color: #4facfe;
+}
 
-    /* Text input box */
-    #taskInput {
-      flex: 1;
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      font-size: 16px;
-    }
+#addButton {
+  padding: 12px 20px;
+  background: #4facfe;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    #taskInput:focus {
-      outline: none;
-      border-color: #4facfe;
-    }
+#addButton:hover {
+  background: #3a8fd6;
+}
 
-    /* Add button */
-    #addButton {
-      padding: 12px 20px;
-      background: #4facfe;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+#todoList {
+  list-style: none;
+}
 
-    #addButton:hover {
-      background: #3a8fd6;
-    }
+.todo-item {
+  background: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideDown 0.3s ease;
+}
 
-    /* To-Do list container */
-    #todoList {
-      list-style: none;
-    }
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    /* Each to-do item */
-    .todo-item {
-      background: #f8f9fa;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      animation: slideDown 0.3s ease;
-    }
+.todo-item:hover {
+  background: #e9ecef;
+}
 
-    /* Slide down animation */
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+.task-text {
+  flex: 1;
+  color: #333;
+  font-size: 16px;
+}
 
-    /* Hover effect on items */
-    .todo-item:hover {
-      background: #e9ecef;
-    }
+.delete-button {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
-    /* Task text */
-    .task-text {
-      flex: 1;
-      color: #333;
-      font-size: 16px;
-    }
+.delete-button:hover {
+  background: #ee5a6f;
+}
 
-    /* Delete button */
-    .delete-button {
-      background: #ff4757;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .delete-button:hover {
-      background: #ee5a6f;
-    }
-
-    /* Empty state message */
-    .empty-message {
-      text-align: center;
-      color: #999;
-      padding: 30px;
-      font-size: 16px;
-    }
+.empty-message {
+  text-align: center;
+  color: #999;
+  padding: 30px;
+  font-size: 16px;
+}
