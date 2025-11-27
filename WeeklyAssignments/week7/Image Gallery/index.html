@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Mini Projects</title>
+</head>
+<body>
+
+<h2 class="title">Image Gallery</h2>
+<div class="gallery-container">
+    <img id="main-image" class="main-image" src="https://picsum.photos/id/1015/600/400">
+    <div id="thumb-container" class="thumb-container">
+        <img src="https://picsum.photos/id/1015/150/100" data-large="https://picsum.photos/id/1015/600/400">
+        <img src="https://picsum.photos/id/1025/150/100" data-large="https://picsum.photos/id/1025/600/400">
+        <img src="https://picsum.photos/id/1035/150/100" data-large="https://picsum.photos/id/1035/600/400">
+        <img src="https://picsum.photos/id/1041/150/100" data-large="https://picsum.photos/id/1041/600/400">
+        <img src="https://picsum.photos/id/1050/150/100" data-large="https://picsum.photos/id/1050/600/400">
+    </div>
+</div>
+
+<h2 class="title">Async Data Simulation</h2>
+<div class="async-box">
+    <button id="fetch-btn">Fetch Data</button>
+    <div id="result"></div>
+</div>
+
+<script >
+
+    const thumbContainer = document.getElementById('thumb-container')
+const mainImage = document.getElementById('main-image')
+thumbContainer.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+        mainImage.src = e.target.dataset.large
+    }
+})
+
+const btn = document.getElementById('fetch-btn')
+const result = document.getElementById('result')
+btn.addEventListener('click', function() {
+    result.textContent = 'Loading...'
+    simulateFetch().then(data => {
+        result.textContent = JSON.stringify(data)
+    })
+})
+
+function simulateFetch() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve({ message: 'Data fetched successfully', time: '2 seconds' })
+        }, 2000)
+    })
+}
+
+
+</script>
+</body>
+</html>
